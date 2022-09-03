@@ -1,0 +1,37 @@
+.cinemaHall {
+    text-align: center;
+    display: block;
+}
+.seat {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    margin: 10px;
+    background-color: #999999;
+    display: inline-block;
+    cursor: pointer;
+}
+.passageBetween {
+    height: 1px;
+    width: 100%;
+    display: block;
+}
+.busy {
+    background-color: red;
+}
+.result {
+    font-size: 20px;
+    display: inline-block;
+    width: 90px;
+    max-height: fit-content;
+    overflow-y: auto;
+    margin-right: 5px;
+}
+.showtime {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 2px;
+}
+.showtime.selected {
+    background-color: brown;
+}
