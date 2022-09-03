@@ -1,7 +1,6 @@
-// план зала по рядам общая вместительность 300 мест
-// планов может быть и больше... и разные...
+// план зала по рядам
 var cinemaHall = {
-        row: [5, 10, 10, 10, 10]
+        row: [5, 10, 10, 10 ]
     },
     currentDate = new Date(),
     dates = createDates(currentDate),
@@ -10,7 +9,7 @@ var cinemaHall = {
 createShowtimeMenu(formatDates(dates));
 
 //заполняем в html зал номер 1
-$('.zal1').html(cinemaHallMap);
+$('.cinemaHall').html(cinemaHallMap);
 
 // тут по клику определяем что место выкуплено
 $('.seat').on('click', function(e) {
