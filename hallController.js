@@ -1,6 +1,6 @@
 // план зала по рядам
 var cinemaHall = {
-        row: [5, 10, 10, 10 ]
+        row: [5, 10, 10, 10]
     },
     currentDate = new Date(),
     dates = createDates(currentDate),
@@ -8,11 +8,11 @@ var cinemaHall = {
 
 createShowtimeMenu(formatDates(dates));
 
-//заполняем в html зал номер 1
+//заполняем в html зал
 $('.cinemaHall').html(cinemaHallMap);
 
 // тут по клику определяем что место выкуплено
-$('.seat').on('click', function(e) {
+$('.seat').on('click', function (e) {
     // если первый раз кликнули билет выкупили,
     // если повторно значит вернули билет
     $(e.currentTarget).toggleClass('busy');
@@ -20,8 +20,8 @@ $('.seat').on('click', function(e) {
     showBaySeat();
 });
 
-$('.showtime').on('click', function(e) {
-    $.each($('.showtime.selected'), function(key, item) {
+$('.showtime').on('click', function (e) {
+    $.each($('.showtime.selected'), function (key, item) {
         $(item).removeClass('selected');
     });
     $(e.currentTarget).toggleClass('selected');
@@ -29,13 +29,13 @@ $('.showtime').on('click', function(e) {
     var time = $(e.currentTarget).data().time,
         seatInfos = getSeatInfosFromLocalStorage(time);
 
-    $.each($('.seat.busy'), function(key, item) {
+    $.each($('.seat.busy'), function (key, item) {
         $(item).removeClass('busy');
     })
 
-    if(seatInfos != null) {
-        $.each(seatInfos, function(index, seatInfo) {
-            var seat = $('[data-row='+ seatInfo.row +'] [data-seat='+ seatInfo.seat +']');
+    if (seatInfos != null) {
+        $.each(seatInfos, function (index, seatInfo) {
+            var seat = $('[data-row=' + seatInfo.row + '] [data-seat=' + seatInfo.seat + ']');
             seat.addClass('busy');
         });
     }
@@ -45,12 +45,12 @@ $('.showtime').on('click', function(e) {
 
 // показать выбранные билеты в "результате"
 function showBaySeat() {
-    var result = '', 
+    var result = '',
         date = $('.showtime.selected').data().time,
         seatInfos = [];
     //ищем все места купленные и показываем список выкупленных мест
-    
-    $.each($('.seat.busy'), function(key, item) {
+
+    $.each($('.seat.busy'), function (key, item) {
         var seatInfo = {
             row: $(item.parentElement).data().row,
             seat: $(item).data().seat,
@@ -76,18 +76,18 @@ function makeHallSeats(cinemaHall) {
             cinemaHallRow = ''.concat('<div data-row="', visualRowNumber, '">')
                 .concat('<span>Ряд ', visualRowNumber, '</span>'),
             numberOfSeats = cinemaHall.row[rowNumber];
-    
+
         for (var i = 0; i < numberOfSeats; i++) {
             // собираем ряды
             var seatVisualNumber = i + 1;
-            cinemaHallRow += 
+            cinemaHallRow +=
                 ''.concat('<div class="seat"',
                     // ' data-row="', (rowNumber + 1), '"',
-                    ' data-seat="', seatVisualNumber, '">', seatVisualNumber,'</div>'
+                    ' data-seat="', seatVisualNumber, '">', seatVisualNumber, '</div>'
                 );
         }
         //собираем зал с проходами между рядами
-        cinemaHallMap += cinemaHallRow + '</div><div class="passageBetween">&nbsp;</div>'; 
+        cinemaHallMap += cinemaHallRow + '</div><div class="passageBetween">&nbsp;</div>';
     }
     return cinemaHallMap;
 }
@@ -103,11 +103,12 @@ function createShowtimeMenu(dates) {
     dateContainer.html(showtimeRows);
 }
 
+
 // Создать сеансы на дату
 function createShowtimesOnDate(date) {
-    var showtimeRow = '<div>' + date.toString() + ': ';
+    var showtimeRow = '<div class="dateShowTime" data-date="' + date.toString() + '">' + date.toString() + ': ';
 
-    for (var time = 10; time <= 20; time+=2) {
+    for (var time = 10; time <= 20; time += 2) {
         showtimeRow += createShowtime(time);
     }
 
@@ -118,8 +119,8 @@ function createShowtimesOnDate(date) {
 // Создать сеанс по указанному времени
 function createShowtime(hour) {
     var time = hour + ':00';
-    
-    return ''.concat('<div class="showtime" data-time="', hour ,'">', time,'</div>');
+
+    return ''.concat('<div class="showtime" data-time="', hour, '">', time, '</div>');
 }
 
 // создать список дат относительно текущей
@@ -132,6 +133,7 @@ function createDates(currentDate) {
 
     return dates;
 }
+
 //форматирует даты к нормальному виду
 function formatDates(dates) {
     var dateOptions = {
@@ -151,6 +153,7 @@ function formatDates(dates) {
     }
     return formattedDates;
 }
+
 // добавить даты к текущей дате
 function addDaysToDate(date, days) {
     return new Date(new Date().setDate(date.getDate() + days))
@@ -162,7 +165,7 @@ function saveSeatInfosToLocalStorage(seatInfos) {
     var date = seatInfos[0].date,
         json = JSON.stringify(seatInfos);
 
-    localStorage.setItem(date, json);    
+    localStorage.setItem(date, json);
 }
 
 // получить список занятых мест по дате и времени
