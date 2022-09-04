@@ -139,20 +139,15 @@ function formatDates(dates) {
     var dateOptions = {
         weekday: 'short',
         year: 'numeric',
-        month: 'short',
+        month: 'numeric',
         day: 'numeric'
     };
     var formattedDates = [];
     for (var i = 0; i < dates.length; i++) {
-        formattedDates.push(Intl.DateTimeFormat('ru-RU', {
-            weekday: 'short',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        }).format(dates[i]));
-    }
+        formattedDates.push(dates[i].toLocaleString('ru', dateOptions));}
     return formattedDates;
 }
+
 
 // добавить даты к текущей дате
 function addDaysToDate(date, days) {
